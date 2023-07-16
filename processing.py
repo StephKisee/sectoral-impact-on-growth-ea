@@ -35,18 +35,9 @@ def process_data(file_name):
     df['Year'] = pd.to_datetime(df['Year']).dt.year
 
     # Set the index to 'Year' and 'Country Name'
-    df.set_index('Year', inplace=True)
+    df.set_index(['Year', 'Country Name'], inplace=True)
 
-    try:
-        # Write the processed data to a new sheet in the same Excel file
-        with pd.ExcelWriter(file_name) as writer:
-            df.to_excel(writer, sheet_name='Processed Data')
-        print("Data written successfully to Excel file.")
-    except PermissionError as e:
-        print("PermissionError:", e)
-        print("Make sure you have the necessary permissions to write to the specified file or directory.")
-
-    df.to_csv('data/processed_data.csv')
+    #df.to_csv('data/processed_data.csv')
 
     return df
 
